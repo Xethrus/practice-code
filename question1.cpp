@@ -27,7 +27,7 @@ public:
   void insertNode(int);
   void deleteNode(int);
   void printList();
-  void makeUnrepeating(Linkedlist&);
+  void makeUnrepeating();
 };
 
 void Linkedlist::insertNode(int data) {
@@ -82,18 +82,28 @@ void Linkedlist::deleteNode(int target) {
   //del node
   delete temp1;
 }
-void Linkedlist::makeUnrepeating(Linkedlist& obj) {
+void Linkedlist::makeUnrepeating() {
   std::set<int> uniqueInts;
-  Node *cursor = head;
+  Node *cursor = this->head;
   int position = 0;
   while (cursor->next != NULL) {
     position ++;
     if(uniqueInts.find(cursor->data) != uniqueInts.end()) {
-      obj.deleteNode(position);
+      this->deleteNode(position);
     }
     uniqueInts.insert(cursor->data);
     cursor = cursor->next; 
-} 
+  } 
+}
+
+void Linkedlist::printList() {
+  Node* cursor = this->head;
+  while (cursor->next != NULL) {
+    std::cout << cursor->data << std::endl;
+    cursor = cursor->next;
+  }
+  return;
+}
 /*
 std::map<int, int> Linkedlist::findMultiples(std::vector<int> conversion) {
   std::map<int, int> hash;
@@ -107,11 +117,11 @@ std::map<int, int> Linkedlist::findMultiples(std::vector<int> conversion) {
   return hash;
 }
 */
-}
-
 int main() {
   Linkedlist newList;
-  newList.makeUnrepeating(newList);
+  newList.printList();
+  newList.makeUnrepeating();
+  newList.printList();
   //makeUnrepeating(newList);
   //deleteMultiples(newList, findMultiples(linkedListConvert(newList)));
 };
