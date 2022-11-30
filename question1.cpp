@@ -92,7 +92,7 @@ void Linkedlist::makeUnrepeating() {
     position ++;
     //find does not work here at all bruh TODO
     if(uniqueInts.empty() != true && data != uniqueInts.end()) {
-      this->deleteNode(data);
+      this->deleteNode(*data);
     }
     uniqueInts.insert(cursor->data);
     cursor = cursor->next; 
