@@ -86,10 +86,13 @@ void Linkedlist::makeUnrepeating() {
   std::set<int> uniqueInts;
   Node *cursor = this->head;
   int position = 0;
-  while (cursor->next != NULL) {
+  while (cursor != NULL) {
+    int info = cursor->data;
+    auto data = uniqueInts.find(info);
     position ++;
-    if(uniqueInts.find(cursor->data) != uniqueInts.end()) {
-      this->deleteNode(position);
+    //find does not work here at all bruh TODO
+    if(uniqueInts.empty() != true && data != uniqueInts.end()) {
+      this->deleteNode(data);
     }
     uniqueInts.insert(cursor->data);
     cursor = cursor->next; 
@@ -98,9 +101,9 @@ void Linkedlist::makeUnrepeating() {
 
 void Linkedlist::printList() {
   Node* cursor = this->head;
-  while (cursor->next != NULL) {
+  while (cursor != NULL) {
     std::cout << cursor->data << std::endl;
-    cursor = cursor->next;
+    cursor = cursor->next; 
   }
   return;
 }
@@ -119,6 +122,11 @@ std::map<int, int> Linkedlist::findMultiples(std::vector<int> conversion) {
 */
 int main() {
   Linkedlist newList;
+  newList.insertNode(1);
+  newList.insertNode(1);
+  newList.insertNode(3);
+  newList.insertNode(19);
+  newList.insertNode(123);  
   newList.printList();
   newList.makeUnrepeating();
   newList.printList();
