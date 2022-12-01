@@ -62,13 +62,16 @@ std::vector<int> Linkedlist::arrangeValues(int key) {
   while (cursor != NULL) {
     if (cursor->data < key) {
       lesser.push_back(cursor->data);
+      cursor = cursor->next;
     } else {
       greater.push_back(cursor->data);
+      cursor = cursor->next;
     }
   }
   for(int i = 0; i < lesser.size(); i++) {
     values.push_back(lesser[i]);
   }
+  values.push_back(key);
   for(int i = 0; i < greater.size(); i++) {
     values.push_back(greater[i]);
   }
@@ -77,10 +80,11 @@ std::vector<int> Linkedlist::arrangeValues(int key) {
 void Linkedlist::reorgList(std::vector<int> order) {
   Node* cursor = this->head;
   int counter = 0;
+  std::cout << order[counter] << std::endl;
   while (cursor != NULL) {
     cursor->data = order[counter];
-    std::cout << "cursor->data: " << cursor->data << std::endl;
-    std::cout << "order[counter]: " << order[counter] >> std::endl;
+    //std::cout << "cursor->data: " << cursor->data << std::endl;
+    //std::cout << "order[counter]: " << order[counter] >> std::endl;
     counter++;
     cursor = cursor->next;
   }
