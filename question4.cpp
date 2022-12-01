@@ -113,8 +113,11 @@ int * Linkedlist::getValues(int keyValue) {
 }
 void Linkedlist::rebuildList(int array[]) {
   Node *cursor = this->head;
+  //not able to access this array, something is broken in the implementation
+  std::cout << array[0] << std::endl;
   int counter = 0;
   while (cursor != NULL) {
+    //seg fault
     cursor->data = array[counter];
     cursor = cursor->next;
     counter++;  
