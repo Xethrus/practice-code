@@ -72,6 +72,7 @@ int Linkedlist::getLength() {
   }
   return size;
 }
+//broken function
 int * Linkedlist::getValues(int keyValue) {
   int length = this->getLength();
   int values[length];
@@ -109,9 +110,12 @@ int * Linkedlist::getValues(int keyValue) {
   for(int i = lesser; i < greater + lesser; i++) {
     values[i] = greaterArray[i];
   }
+  for(int i = 0; i < length; i++) {
+    std::cout << values[i] << std::endl;
+  }
   return values;
 }
-void Linkedlist::rebuildList(int array[]) {
+void Linkedlist::rebuildList(int * array){
   Node *cursor = this->head;
   //not able to access this array, something is broken in the implementation
   std::cout << array[0] << std::endl;
