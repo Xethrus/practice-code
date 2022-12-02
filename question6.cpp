@@ -27,31 +27,40 @@ public:
 Node* Linkedlist::insertNode(int data) {
   Node* newNode = new Node(data);
   if (head == NULL) {
+//    std::cout << "lol1" << std::endl;
     head = newNode;
     return head;
   }
   Node* cursor = head;
   Node* exampleNode;
   while (cursor != NULL) { 
-    cursor = cursor->next; 
-    exampleNode = findNodeRepeat();
-    std::cout << exampleNode->data << std::endl;
+ //   std::cout << "lol2" << std::endl;
+    if(cursor->next == NULL) {
+      cursor->next = newNode;
+    } else {
+      cursor = cursor->next;
+    }
     if(findNodeRepeat() == cursor) {
+  //    std::cout << "lol3" << std::endl;
       cursor->next = newNode;
       return newNode;
     }
   }
+  std::cout << cursor->data << std::endl;
   cursor->next = newNode;
 }
 Node* Linkedlist::findNodeRepeat() {
   Node* cursor = head;
   std::vector<Node*> nodes;
   while (cursor != NULL) {
+   // std::cout << "lol3" << std::endl;
     for(auto& node : nodes) {
+      //never accessed
       if (cursor == node) {
         return node;
       }
     }
+    //std::cout << "lol6" << std::endl;
     nodes.push_back(cursor);
     cursor = cursor->next;
   }
@@ -74,8 +83,12 @@ Node* Linkedlist::findNodeRepeat() {
 void Linkedlist::printList() {
   Node* cursor = head;
   while (cursor != NULL) {
+    //never accesed
     std::cout << cursor->data << std::endl;
     cursor = cursor->next;
+    if(findNodeRepeat() == cursor) {
+      return;
+    }
   } 
   std::cout << cursor->data << std::endl;
 
