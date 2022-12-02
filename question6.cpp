@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 class Node {
 public:
@@ -18,6 +19,7 @@ public:
     head = NULL;
   }
   void changeNext(Node*); 
+  Node* findNodeRepeat();
   Node* insertNode(int);
   void printList();
 };
@@ -33,27 +35,24 @@ Node* Linkedlist::insertNode(int data) {
   cursor->next = newNode;
   return newNode;
 }
-
-void Linkedlist::changeNext(Node* nodeToChange) {
+Node* Linkedlist::findNodeRepeat() {
   Node* cursor = head;
-  int counter = 0;
-  std::cout << "this ran" << std::endl;
-  while (cursor != NULL && counter < 3) {
-    //works
-    cursor = cursor->next;
-    counter++;
-  } 
-  nodeToChange->next = cursor;
-  std::cout << nodeToChange->data << std::endl;
-  std::cout << cursor->data << std::endl;
-  std::cout << cursor->next->data << std::endl;
+  std::vector<Node *> nodesFound;
+  std::vector<Node *>::iterator finder;
+  while (cursor != NULL) {
+    finder = std::find(nodesFound.begin(), nodesFound.end(),cursor);
+    if(finder != nodesFound.end()) {
+      return nodesFound[finder- nodesFound.begin()];
+    } else {
+      nodesFound.push_back(cursor);
+      cursor = cursor->next;
+    }
+  }
 }
 void Linkedlist::printList() {
   Node* cursor = head;
-  std::cout << "this broken?" << std::endl;
   while (cursor != NULL) {
     std::cout << cursor->data << std::endl;
-    std::cout << "infinite" << std::endl;
     cursor = cursor->next;
   } 
   std::cout << cursor->data << std::endl;
@@ -66,9 +65,12 @@ int main() {
   list.insertNode(2);
   list.insertNode(3);
   list.insertNode(4);
-  list.changeNext(list.insertNode(5));
+  Node *a = list.insertNode(5);
   list.insertNode(6);
+  Node *c = list.insertNode(7);
+  c->next = a;
   list.insertNode(7);
   list.insertNode(8);
+  list.findNodeRepeat();
   list.printList();
 }
