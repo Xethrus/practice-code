@@ -13,30 +13,36 @@ public:
 
 class Linkedlist {
   Node* head;
-  Node* last;
 public:
   Linkedlist() { 
     head = NULL;
-    last->next = head;
   }
-  
-  void insertNode(int);
+  void changeNext(Node*); 
+  Node* insertNode(int);
   void printList();
 };
 
-void Linkedlist::insertNode(int data) {
+Node* Linkedlist::insertNode(int data) {
   Node* newNode = new Node(data);
   if (head == NULL) {
     head = newNode;
-    head->next = last;
-    return;
+    return head;
   }
   Node* cursor = head;
-  while (cursor->next != last) { cursor = cursor->next; }
+  while (cursor->next != NULL) { cursor = cursor->next; }
   cursor->next = newNode;
-  newNode->next = last;
+  return newNode;
 }
 
+void Linkedlist::changeNext(Node* nodeToChange) {
+  Node* cursor = head;
+  int counter = 0;
+  while (cursor != NULL && counter < 3) {
+    cursor = cursor->next;
+    counter++;
+  } 
+  nodeToChange->next = cursor;
+}
 void Linkedlist::printList() {
   Node* cursor = head;
   while (cursor != NULL) {
@@ -51,7 +57,7 @@ int main() {
   list.insertNode(2);
   list.insertNode(3);
   list.insertNode(4);
-  list.insertNode(5);
+  list.changeNext(list.insertNode(5));
   list.insertNode(6);
   list.insertNode(7);
   list.insertNode(8);
