@@ -87,6 +87,7 @@ void Linkedlist::printList() {
     std::cout << cursor->data << std::endl;
     cursor = cursor->next;
     if(findNodeRepeat() == cursor) {
+      std::cout << cursor->data << std::endl;
       return;
     }
   } 
