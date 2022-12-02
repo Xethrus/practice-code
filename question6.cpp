@@ -37,18 +37,27 @@ Node* Linkedlist::insertNode(int data) {
 void Linkedlist::changeNext(Node* nodeToChange) {
   Node* cursor = head;
   int counter = 0;
+  std::cout << "this ran" << std::endl;
   while (cursor != NULL && counter < 3) {
+    //works
     cursor = cursor->next;
     counter++;
   } 
   nodeToChange->next = cursor;
+  std::cout << nodeToChange->data << std::endl;
+  std::cout << cursor->data << std::endl;
+  std::cout << cursor->next->data << std::endl;
 }
 void Linkedlist::printList() {
   Node* cursor = head;
+  std::cout << "this broken?" << std::endl;
   while (cursor != NULL) {
     std::cout << cursor->data << std::endl;
+    std::cout << "infinite" << std::endl;
     cursor = cursor->next;
-  } //not working reads into random mem TODO
+  } 
+  std::cout << cursor->data << std::endl;
+
 }
 
 int main() {
