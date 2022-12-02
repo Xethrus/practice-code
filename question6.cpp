@@ -31,11 +31,17 @@ Node* Linkedlist::insertNode(int data) {
     return head;
   }
   Node* cursor = head;
-  while (cursor->next != NULL) { 
+  Node* exampleNode;
+  while (cursor != NULL) { 
     cursor = cursor->next; 
+    exampleNode = findNodeRepeat();
+    std::cout << exampleNode->data << std::endl;
+    if(findNodeRepeat() == cursor) {
+      cursor->next = newNode;
+      return newNode;
+    }
   }
   cursor->next = newNode;
-  return newNode;
 }
 Node* Linkedlist::findNodeRepeat() {
   Node* cursor = head;
