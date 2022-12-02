@@ -31,11 +31,26 @@ Node* Linkedlist::insertNode(int data) {
     return head;
   }
   Node* cursor = head;
-  while (cursor->next != NULL) { cursor = cursor->next; }
+  while (cursor->next != NULL) { 
+    cursor = cursor->next; 
+  }
   cursor->next = newNode;
   return newNode;
 }
 Node* Linkedlist::findNodeRepeat() {
+  Node* cursor = head;
+  std::vector<Node*> nodes;
+  while (cursor != NULL) {
+    for(auto& node : nodes) {
+      if (cursor == node) {
+        return node;
+      }
+    }
+    nodes.push_back(cursor);
+    cursor = cursor->next;
+  }
+}
+/*Node* Linkedlist::findNodeRepeat() {
   Node* cursor = head;
   std::vector<Node *> nodesFound;
   std::vector<Node *>::iterator finder;
@@ -49,6 +64,7 @@ Node* Linkedlist::findNodeRepeat() {
     }
   }
 }
+*/
 void Linkedlist::printList() {
   Node* cursor = head;
   while (cursor != NULL) {
