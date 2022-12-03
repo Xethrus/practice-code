@@ -44,11 +44,13 @@ int giveValueZeroes(int key, int power) {
 int Linkedlist::get3DigitNumber() {
   Node* cursor = this->head;
   int counter = 0;
-  int value1;
-  int value2;
+  int value1 = 0;
+  int value2 = 0;
   //broken use of function lapping number to huge number somehow
   for(int i = 0; i  < 6; i++) {
     if ( i < 3 ) {
+      int number = giveValueZeroes(cursor->data, i);
+      std::cout << value1 << " += " << number << std::endl;
       value1 += giveValueZeroes(cursor->data, i);
     }
     if ( i >= 3 && i < 6) {
