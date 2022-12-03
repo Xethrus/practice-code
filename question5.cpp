@@ -2,20 +2,20 @@
 #include <cmath>
 
 class Node {
-public:
-  int data;
-  Node* next;
+  public:
+    int data;
+    Node* next;
 
-  Node() { data = 0; next = NULL; }
-  Node(int data) {
-    this->data = data;
-    this->next = NULL;
-  }
+    Node() { data = 0; next = NULL; }
+    Node(int data) {
+      this->data = data;
+      this->next = NULL;
+    }
 };
 
 class Linkedlist {
   Node* head;
-public:
+  public:
   Linkedlist() { head = NULL; }
 
   void insertNode(int);
@@ -37,6 +37,8 @@ int giveValueZeroes(int key, int power) {
   std::cout << "the power is: " << power << std::endl;
   int multiplier = std::pow(10, power);
   key = multiplier * key;
+  std::cout << "key: " << key << std::endl;
+  std::cout << "multi: " << multiplier << std::endl;
   return key;
 }
 int Linkedlist::get3DigitNumber() {
@@ -45,15 +47,14 @@ int Linkedlist::get3DigitNumber() {
   int value1;
   int value2;
   //broken use of function lapping number to huge number somehow
-  for(int i = 0; i  < 3; i++) {
-    value1 = value1 + giveValueZeroes(cursor->data, i);
-    std::cout << "cursor data: " << cursor->data << std::endl;
-    cursor = cursor->next;
+  for(int i = 0; i  < 6; i++) {
+    if ( i < 3 ) {
+      value1 += giveValueZeroes(cursor->data, i);
     }
-  for(int i = 0; i < 3; i++) {
-    value2 = value2 + giveValueZeroes(cursor->data, i);
-    std::cout << "value2 in for loop: " << value2 << std::endl;
-    std::cout << "cursor data: " <<  cursor->data << std::endl;
+    if ( i >= 3 && i < 6) {
+      value2 += giveValueZeroes(cursor->data, i-3);
+    }
+    std::cout << "cursor data: " << cursor->data << std::endl;
     cursor = cursor->next;
   }
   std::cout << "value1: " << value1 << std::endl;
