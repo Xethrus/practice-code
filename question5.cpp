@@ -21,7 +21,7 @@ class Linkedlist {
   void insertNode(int);
   void printList();
   float get3DigitNumber();
-  void intToNode(int); 
+  void intToNode(double); 
 };
 
 void Linkedlist::insertNode(int data) {
@@ -82,9 +82,10 @@ int placeValue(int N, int num) {
 */
 void Linkedlist::intToNode(double value) {
   int counter = 0;
+  double divisor = 10;
   std::cout << "value2: " << value << std::endl;
   while (value != 0) {
-    value = value / 10;
+    value = value / divisor;
     value = value.floor();
     counter++;
   }
