@@ -20,7 +20,7 @@ class Linkedlist {
 
   void insertNode(int);
   void printList();
-  int get3DigitNumber();
+  float get3DigitNumber();
   void intToNode(int); 
 };
 
@@ -42,7 +42,7 @@ int giveValueZeroes(int key, int power) {
  // std::cout << "multi: " << multiplier << std::endl;
   return key;
 }
-int Linkedlist::get3DigitNumber() {
+float Linkedlist::get3DigitNumber() {
   Node* cursor = this->head;
   int counter = 0;
   int value1 = 0;
@@ -62,7 +62,7 @@ int Linkedlist::get3DigitNumber() {
   }
   //std::cout << "value1: " << value1 << std::endl;
   //std::cout << "value2: " << value2 << std::endl;
-  int finalValue = value1 + value2;
+  float finalValue = value1 + value2;
   return finalValue;
 }
 /*
@@ -80,25 +80,38 @@ int placeValue(int N, int num) {
   return value;
 }
 */
-void Linkedlist::intToNode(int value) {
+void Linkedlist::intToNode(double value) {
   int counter = 0;
+  std::cout << "value2: " << value << std::endl;
   while (value != 0) {
     value = value / 10;
-    counter++
+    value = value.floor();
+    counter++;
   }
-  int places = [counter];
+  int places[counter];
   counter = 0;
+  std::cout << "value1: " << value << std::endl;
   while (value != 0) {
-    places[counter] = (value % 10)
+    places[counter] = (value % 10);
     value = value / 10;
     counter++;
   }
   Node* cursor = head;
+  std::cout << "counter1: " << counter << std::endl;
   for(int i = counter + 1; i > 0; i--) {
     while(cursor != NULL) {
-      cursor->data = values[i];
+      std::cout << "places[i]: " << places[i] << std::endl;
+      cursor->data = places[i];
       cursor = cursor->next;
     }
+  }
+}
+void Linkedlist::printList() {
+  Node* cursor = head;
+  std::cout << "running1" << std::endl;
+  while (cursor != NULL) {
+    std::cout << cursor->data << std::endl;
+    cursor = cursor->next;
   }
 }
 int main() {
@@ -110,5 +123,7 @@ int main() {
   list.insertNode(5);
   list.insertNode(6);
   Linkedlist list2;
+  std::cout << list.get3DigitNumber() << std::endl;
   list2.intToNode(list.get3DigitNumber());
+  list2.printList();
 }
