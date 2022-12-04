@@ -85,15 +85,16 @@ void Linkedlist::intToNode(double value) {
   double divisor = 10;
   std::cout << "value2: " << value << std::endl;
   while (value != 0) {
+    std::cout << "value3: " << value << std::endl;
     value = value / divisor;
-    value = value.floor();
+    value = floor(value);
     counter++;
   }
   int places[counter];
   counter = 0;
   std::cout << "value1: " << value << std::endl;
   while (value != 0) {
-    places[counter] = (value % 10);
+    places[counter] = (int(value) % int(divisor));
     value = value / 10;
     counter++;
   }
