@@ -21,6 +21,7 @@ class Linkedlist {
   void insertNode(int);
   void printList();
   int get3DigitNumber();
+  void intToNode(int); 
 };
 
 void Linkedlist::insertNode(int data) {
@@ -34,11 +35,11 @@ void Linkedlist::insertNode(int data) {
   temp->next = newNode;
 }
 int giveValueZeroes(int key, int power) {
-  std::cout << "the power is: " << power << std::endl;
+  //std::cout << "the power is: " << power << std::endl;
   int multiplier = std::pow(10, power);
   key = multiplier * key;
-  std::cout << "key: " << key << std::endl;
-  std::cout << "multi: " << multiplier << std::endl;
+//  std::cout << "key: " << key << std::endl;
+ // std::cout << "multi: " << multiplier << std::endl;
   return key;
 }
 int Linkedlist::get3DigitNumber() {
@@ -50,21 +51,56 @@ int Linkedlist::get3DigitNumber() {
   for(int i = 0; i  < 6; i++) {
     if ( i < 3 ) {
       int number = giveValueZeroes(cursor->data, i);
-      std::cout << value1 << " += " << number << std::endl;
+   //   std::cout << value1 << " += " << number << std::endl;
       value1 += giveValueZeroes(cursor->data, i);
     }
     if ( i >= 3 && i < 6) {
       value2 += giveValueZeroes(cursor->data, i-3);
     }
-    std::cout << "cursor data: " << cursor->data << std::endl;
+    //std::cout << "cursor data: " << cursor->data << std::endl;
     cursor = cursor->next;
   }
-  std::cout << "value1: " << value1 << std::endl;
-  std::cout << "value2: " << value2 << std::endl;
+  //std::cout << "value1: " << value1 << std::endl;
+  //std::cout << "value2: " << value2 << std::endl;
   int finalValue = value1 + value2;
   return finalValue;
 }
-
+/*
+int placeValue(int N, int num) {
+  int total = 1, value = 0, rem =0;
+  while (true) {
+    rem = N % 10;
+    N = N / 10;
+    if (rem == num) {
+      value = total * rem;
+      break;
+    }
+    total = total * 10;
+  }
+  return value;
+}
+*/
+void Linkedlist::intToNode(int value) {
+  int counter = 0;
+  while (value != 0) {
+    value = value / 10;
+    counter++
+  }
+  int places = [counter];
+  counter = 0;
+  while (value != 0) {
+    places[counter] = (value % 10)
+    value = value / 10;
+    counter++;
+  }
+  Node* cursor = head;
+  for(int i = counter + 1; i > 0; i--) {
+    while(cursor != NULL) {
+      cursor->data = values[i];
+      cursor = cursor->next;
+    }
+  }
+}
 int main() {
   Linkedlist list;
   list.insertNode(1);
@@ -73,5 +109,6 @@ int main() {
   list.insertNode(4);
   list.insertNode(5);
   list.insertNode(6);
-  list.get3DigitNumber();
+  Linkedlist list2;
+  list2.intToNode(list.get3DigitNumber());
 }
