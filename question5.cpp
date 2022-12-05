@@ -17,15 +17,17 @@ class Linkedlist {
   Node* head;
   public:
   Linkedlist() { head = NULL; }
-
+  int arraySize;
   void insertNode(int);
   void printList();
   float get3DigitNumber();
   void intToNode(int); 
   void buildLinked(int *);
+  int * intToArray(int);
+  int * cycleArray(int *);
   //int reduceInts(int);
 };
-int * intToArray(int number) {
+int * Linkedlist::intToArray(int number) {
   int divisor = 10;
   int count = 0;
   int temp = number;
@@ -34,10 +36,17 @@ int * intToArray(int number) {
     count++;
   }
   //lookout for array being too small
+  count = count + 1;
+  arraySize = count;
   int array[count] = {};
   for (int i = 1; i <= count + 1; i++) {
     int power = std::pow(divisor, i);
     array[i-1] = (temp % power);
+  }
+  int size = sizeof(array)/ 4;
+  std::cout << "size: " <<size << std::endl;
+  for (int i = 0; i < size; i++) {
+    std::cout << "array: " << array[i] << std::endl;
   }
   return array;
 }
@@ -47,16 +56,22 @@ int reduceInts(int value) {
   }
   return value;
 }
-int * cycleArray(int * array) {
+int * Linkedlist::cycleArray(int * array) {
+  std::cout << array << std::endl;
   int counter = 0;
-  int size = sizeof(array) / 4;
-  for (int i = 0; i < size; i++) {
+  int size = arraySize; 
+
+  for(int i = 0; i < size; i++) {
+    std::cout << array[i] << std::endl;
     array[i] = reduceInts(array[i]);
+  }
+  for (int i = 0; i < size; i++) {
+    std::cout << "array2: " << array[i] << std::endl;
   }
   return array;
 }
 void Linkedlist::buildLinked(int * array) {
-  int size = sizeof(array) / 4;
+  int size = arraySize; 
   Node* cursor = head; 
   for(int i = 0; i < size; i++) {
     if(cursor == NULL) {
@@ -118,6 +133,6 @@ int main() {
   list.insertNode(5);
   list.insertNode(6);
   Linkedlist list2;
-  list2.buildLinked(cycleArray(intToArray(list.get3DigitNumber())));
+  list2.buildLinked(list2.cycleArray(list2.intToArray(list.get3DigitNumber())));
   list2.printList();
 }
