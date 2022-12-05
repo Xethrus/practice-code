@@ -22,8 +22,51 @@ class Linkedlist {
   void printList();
   float get3DigitNumber();
   void intToNode(int); 
+  void buildLinked(int *);
+  //int reduceInts(int);
 };
-
+int * intToArray(int number) {
+  int divisor = 10;
+  int count = 0;
+  int temp = number;
+  while (number / divisor > 0) {
+    number = number / divisor;
+    count++;
+  }
+  //lookout for array being too small
+  int array[count] = {};
+  for (int i = 1; i <= count + 1; i++) {
+    int power = std::pow(divisor, i);
+    array[i-1] = (temp % power);
+  }
+  return array;
+}
+int reduceInts(int value) {
+  while (value / 10 > 0) {
+    value = value / 10;
+  }
+  return value;
+}
+int * cycleArray(int * array) {
+  int counter = 0;
+  int size = sizeof(array) / 4;
+  for (int i = 0; i < size; i++) {
+    array[i] = reduceInts(array[i]);
+  }
+  return array;
+}
+void Linkedlist::buildLinked(int * array) {
+  int size = sizeof(array) / 4;
+  Node* cursor = head; 
+  for(int i = 0; i < size; i++) {
+    if(cursor == NULL) {
+      break;
+    } else {
+      cursor->data = array[i];
+      cursor = cursor->next; 
+    } 
+  }
+}
 void Linkedlist::insertNode(int data) {
   Node* newNode = new Node(data);
   if (head == NULL) {
@@ -35,11 +78,8 @@ void Linkedlist::insertNode(int data) {
   temp->next = newNode;
 }
 int giveValueZeroes(int key, int power) {
-  //std::cout << "the power is: " << power << std::endl;
   int multiplier = std::pow(10, power);
   key = multiplier * key;
-//  std::cout << "key: " << key << std::endl;
- // std::cout << "multi: " << multiplier << std::endl;
   return key;
 }
 float Linkedlist::get3DigitNumber() {
@@ -47,74 +87,18 @@ float Linkedlist::get3DigitNumber() {
   int counter = 0;
   int value1 = 0;
   int value2 = 0;
-  //broken use of function lapping number to huge number somehow
   for(int i = 0; i  < 6; i++) {
     if ( i < 3 ) {
       int number = giveValueZeroes(cursor->data, i);
-   //   std::cout << value1 << " += " << number << std::endl;
       value1 += giveValueZeroes(cursor->data, i);
     }
     if ( i >= 3 && i < 6) {
       value2 += giveValueZeroes(cursor->data, i-3);
     }
-    //std::cout << "cursor data: " << cursor->data << std::endl;
     cursor = cursor->next;
   }
-  //std::cout << "value1: " << value1 << std::endl;
-  //std::cout << "value2: " << value2 << std::endl;
   float finalValue = value1 + value2;
   return finalValue;
-}
-/*
-int placeValue(int N, int num) {
-  int total = 1, value = 0, rem =0;
-  while (true) {
-    rem = N % 10;
-    N = N / 10;
-    if (rem == num) {
-      value = total * rem;
-      break;
-    }
-    total = total * 10;
-  }
-  return value;
-}
-*/
-void Linkedlist::intToNode(int value) {
-  int counter = 0;
-  int divisor = 10;
-  int valueHold = value;
-  while (value != 0) {
-    std::cout << "value3: " << value << std::endl;
-    value = value / divisor;
-    counter++;
-  }
-  int size = counter;
-  int places[counter] = {};
-  counter = 0;
-  std::cout << "value1: " << value << std::endl;
-  while (valueHold != 0) {
-    (value % divisor);
-    std::cout << "value % divisor" << (value & divisor) << std::endl;
-    std::cout << "value Hold: " << valueHold << std::endl;
-    places[counter] = valueHold;
-    valueHold = valueHold / divisor;
-    counter++;
-  }
-  Node* cursor = head;
-  //issue TODO
-  std::cout << "counter1: " << counter << std::endl;
-  //need higher counter- TODO
-  for(int i = 0; i < size; i++) {
-    std::cout << places[i] << std::endl;
-  }
-  for(int i = counter + 1; i > 0; i--) {
-    while(cursor != NULL) {
-      std::cout << "places[i]: " << places[i] << std::endl;
-      cursor->data = places[i];
-      cursor = cursor->next;
-    }
-  }
 }
 void Linkedlist::printList() {
   Node* cursor = head;
@@ -134,7 +118,6 @@ int main() {
   list.insertNode(5);
   list.insertNode(6);
   Linkedlist list2;
-  std::cout << list.get3DigitNumber() << std::endl;
-  list2.intToNode(list.get3DigitNumber());
+  list2.buildLinked(cycleArray(intToArray(list.get3DigitNumber())));
   list2.printList();
 }
