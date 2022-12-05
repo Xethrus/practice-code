@@ -21,7 +21,7 @@ class Linkedlist {
   void insertNode(int);
   void printList();
   float get3DigitNumber();
-  void intToNode(double); 
+  void intToNode(int); 
 };
 
 void Linkedlist::insertNode(int data) {
@@ -80,26 +80,34 @@ int placeValue(int N, int num) {
   return value;
 }
 */
-void Linkedlist::intToNode(double value) {
+void Linkedlist::intToNode(int value) {
   int counter = 0;
-  double divisor = 10;
-  std::cout << "value2: " << value << std::endl;
+  int divisor = 10;
+  int valueHold = value;
   while (value != 0) {
     std::cout << "value3: " << value << std::endl;
     value = value / divisor;
-    value = floor(value);
     counter++;
   }
-  int places[counter];
+  int size = counter;
+  int places[counter] = {};
   counter = 0;
   std::cout << "value1: " << value << std::endl;
-  while (value != 0) {
-    places[counter] = (int(value) % int(divisor));
-    value = value / 10;
+  while (valueHold != 0) {
+    (value % divisor);
+    std::cout << "value % divisor" << (value & divisor) << std::endl;
+    std::cout << "value Hold: " << valueHold << std::endl;
+    places[counter] = valueHold;
+    valueHold = valueHold / divisor;
     counter++;
   }
   Node* cursor = head;
+  //issue TODO
   std::cout << "counter1: " << counter << std::endl;
+  //need higher counter- TODO
+  for(int i = 0; i < size; i++) {
+    std::cout << places[i] << std::endl;
+  }
   for(int i = counter + 1; i > 0; i--) {
     while(cursor != NULL) {
       std::cout << "places[i]: " << places[i] << std::endl;
@@ -112,6 +120,7 @@ void Linkedlist::printList() {
   Node* cursor = head;
   std::cout << "running1" << std::endl;
   while (cursor != NULL) {
+    std::cout << "should be stuff here" << std::endl;
     std::cout << cursor->data << std::endl;
     cursor = cursor->next;
   }
