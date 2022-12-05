@@ -38,13 +38,13 @@ int * Linkedlist::intToArray(int number) {
   //lookout for array being too small
   count = count + 1;
   arraySize = count;
-  int array[count] = {};
+  int *array = new int[count]; 
   for (int i = 1; i <= count + 1; i++) {
     int power = std::pow(divisor, i);
     array[i-1] = (temp % power);
   }
   int size = sizeof(array)/ 4;
-  std::cout << "size: " <<size << std::endl;
+  std::cout << "size: " << size << std::endl;
   for (int i = 0; i < size; i++) {
     std::cout << "array: " << array[i] << std::endl;
   }
@@ -58,7 +58,6 @@ int reduceInts(int value) {
 }
 int * Linkedlist::cycleArray(int * array) {
   std::cout << array << std::endl;
-  int counter = 0;
   int size = arraySize; 
 
   for(int i = 0; i < size; i++) {
@@ -72,14 +71,8 @@ int * Linkedlist::cycleArray(int * array) {
 }
 void Linkedlist::buildLinked(int * array) {
   int size = arraySize; 
-  Node* cursor = head; 
   for(int i = 0; i < size; i++) {
-    if(cursor == NULL) {
-      break;
-    } else {
-      cursor->data = array[i];
-      cursor = cursor->next; 
-    } 
+      insertNode(array[i]);
   }
 }
 void Linkedlist::insertNode(int data) {
@@ -99,12 +92,10 @@ int giveValueZeroes(int key, int power) {
 }
 float Linkedlist::get3DigitNumber() {
   Node* cursor = this->head;
-  int counter = 0;
   int value1 = 0;
   int value2 = 0;
   for(int i = 0; i  < 6; i++) {
     if ( i < 3 ) {
-      int number = giveValueZeroes(cursor->data, i);
       value1 += giveValueZeroes(cursor->data, i);
     }
     if ( i >= 3 && i < 6) {
@@ -117,9 +108,10 @@ float Linkedlist::get3DigitNumber() {
 }
 void Linkedlist::printList() {
   Node* cursor = head;
-  std::cout << "running1" << std::endl;
+  if (cursor == NULL) {
+    std::cout << "cursor is null" << std::endl;
+  }
   while (cursor != NULL) {
-    std::cout << "should be stuff here" << std::endl;
     std::cout << cursor->data << std::endl;
     cursor = cursor->next;
   }
