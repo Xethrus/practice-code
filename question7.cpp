@@ -44,14 +44,11 @@ bool Linkedlist::isPaldrom() {
   int midpoint;
   if ((endPlace % 2) == 0) {
     midpoint = endPlace/2;
-    std::cout << "midpoint1: " << midpoint << std::endl;
   } else {
     midpoint = (endPlace/2) + 1;
-    std::cout << "midpoint2: " << midpoint << std::endl;
   }
   endPlace = endPlace - 1;
   for(int i = 0; i <= midpoint; i++) {
-    std::cout << "i: " << i << std::endl;
     if( vector[i] != vector[endPlace] ) {
       std::cout << "false bro" << std::endl;
       return false;
