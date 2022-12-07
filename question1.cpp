@@ -12,7 +12,7 @@ class Node {
 class Stack {
     Node* top;
   public:
-    Stack() { top = NULL; }
+    Stack() { top = nullptr; }
     int arraySize = 9;
     int array[9] = {1,2,3,4,5,6,7,8,9};
     Node* pop();
@@ -30,12 +30,13 @@ Node* Stack::pop() {
   }
   return nullptr;
 }
-void Stack::printStack() {
-  Node* temp = pop();
-  while (temp != nullptr) {
-    temp = pop();
-    std::cout << "temp: " << temp << std::endl;
-    std::cout << "data: " << temp->data << std::endl; 
+void Stack::printStack() { 
+  for(int i = 0; i < 3; i++) {
+    Node* temp = pop();
+    if (temp != nullptr) {
+      std::cout << "temp: " << temp << std::endl;
+      std::cout << "data: " << temp->data << std::endl;
+    }
   }
   return;
 }
