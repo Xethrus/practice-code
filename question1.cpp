@@ -55,11 +55,17 @@ void Stack::fillThreeStacks() {
   Stack stack1;
   Stack stack2;
   Stack stack3;
+  if (arraySize < 3) {
+    std::cout << "not enough elements in array" << std::endl;
+    return;
+  }
   for (int i = 0; i < arraySize; i += 3) {
     stack1.push(array[i]);
     stack2.push(array[i+1]);
     stack3.push(array[i+2]);
   }
+  stack1.printStack();
+  stack2.printStack();
   stack3.printStack();
 }
 int main() {
