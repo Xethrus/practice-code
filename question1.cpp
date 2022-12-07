@@ -22,21 +22,19 @@ public:
 };
 
 Node* Stack::pop() {
-  if (top == NULL) {
-    return NULL;
+  while (top != NULL) {
+    Node* temp = top;
+    top = top->below;
+    return temp;
   }
-  Node* temp = top;
-  top = top->below;
-  return temp;
+  return NULL;
 }
 void Stack::printStack() {
-  while (true) {
-    Node* temp = pop();
+  Node* temp = pop();
+  while (temp != NULL) {
+    temp = pop();
     std::cout << "temp: " << temp << std::endl;
-    if (temp == NULL) {
-      return;
-    }
-    std::cout << temp->data << std::endl; 
+    std::cout << "data: " << temp->data << std::endl; 
   }
   return;
 }
@@ -60,8 +58,7 @@ void Stack::fillThreeStacks() {
     stack2.push(array[i+1]);
     stack3.push(array[i+2]);
   }
-  stack1.printStack();
-  stack2.printStack();
+  stack3.printStack();
 }
 int main() {
   Stack stack;
