@@ -1,37 +1,38 @@
 #include <iostream>
 class Node {
-public:
-  int data;
-  Node* below;
-  Node() { data = 0; below = NULL; }
-  Node(int data) {
-    this->data = data;
-    this->below = NULL;
-  }
+  public:
+    int data;
+    Node* below;
+    Node() { data = 0; below = NULL; }
+    Node(int data) {
+      this->data = data;
+      this->below = NULL;
+    }
 };
 class Stack {
-public:
-  Node* top;
-  int arraySize = 9;
-  int array[9] = {1,2,3,4,5,6,7,8,9};
-  Node* pop();
-  void push(int);
-  void peek();
-  void fillThreeStacks();
-  void printStack();
+    Node* top;
+  public:
+    Stack() { top = NULL; }
+    int arraySize = 9;
+    int array[9] = {1,2,3,4,5,6,7,8,9};
+    Node* pop();
+    void push(int);
+    void peek();
+    void fillThreeStacks();
+    void printStack();
 };
 
 Node* Stack::pop() {
-  while (top != NULL) {
+  while (top != nullptr) {
     Node* temp = top;
     top = top->below;
     return temp;
   }
-  return NULL;
+  return nullptr;
 }
 void Stack::printStack() {
   Node* temp = pop();
-  while (temp != NULL) {
+  while (temp != nullptr) {
     temp = pop();
     std::cout << "temp: " << temp << std::endl;
     std::cout << "data: " << temp->data << std::endl; 
@@ -41,7 +42,7 @@ void Stack::printStack() {
 
 void Stack::push(int data) {
   Node* newNode = new Node(data);
-  if (top != NULL) {
+  if (top != nullptr) {
     newNode->below = top;
     top = newNode; 
   } else {
