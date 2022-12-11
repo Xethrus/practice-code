@@ -23,9 +23,14 @@ public:
   bool fullStack;
   int pop();
   void push(int);
+  Node* getTop();
 };
 
-void push(int data) {
+Node* Stack::getTop() {
+  return top;
+}
+
+void Stack::push(int data) {
   Node* newNode = new Node(data);
   if (top == NULL) {
     top = newNode;
@@ -34,6 +39,13 @@ void push(int data) {
     top = newNode;
     top->below = temp;
   }  
+}
+
+int Stack::pop() {
+  if (top == NULL) { return 1; }
+  Node* temp = top;
+  top = top->below;
+  return temp->data;
 }
 
 class ManyStacks {
@@ -45,11 +57,12 @@ public:
   }
   void push(int);
   int pop();
-  Stack currentStack();
-}
+  Stack& currentStack();
+  void printAll();
+};
 
 Stack& ManyStacks::currentStack() {
-  return &stacks[stacks.size()];
+  return stacks[stacks.size()];
 }
 
 void ManyStacks::push(int data) {
@@ -57,10 +70,31 @@ void ManyStacks::push(int data) {
     Stack newStack;
     stacks.push_back(newStack);
     newStack.push(data);
+    return;
   }
   currentStack().push(data);
 }
+int ManyStacks::pop() {
+  if (currentStack().getTop() == NULL) {
+    stacks.erase(stacks.end());
+    return currentStack().pop();
+  }  
+  return currentStack().pop();
+}
+void ManyStacks::printAll() {
+  int size = stacks.size();
+}
+
 
 int main() {
+  ManyStacks bigBoy;
+  bigBoy.push(1);
+  bigBoy.push(1);
+  bigBoy.push(1);
+  bigBoy.push(1);
+  bigBoy.push(1);
+  bigBoy.push(1);
+  bigBoy.push(1);
+  bigBoy.push(1);
   return 0;
 }
