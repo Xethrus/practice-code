@@ -19,7 +19,9 @@ public:
   Stack() { 
   top = nullptr;
   fullStack = false;
+  stackSize = 0;
   }
+  int stackSize;
   bool fullStack;
   int pop();
   void push(int);
@@ -39,10 +41,11 @@ void Stack::push(int data) {
     top = newNode;
     top->below = temp;
   }  
+  stackSize++;
 }
 
 int Stack::pop() {
-  if (top == NULL) { return 1; }
+  if (top == NULL) { std::cerr << "no content" << std::endl; }
   Node* temp = top;
   top = top->below;
   return temp->data;
@@ -50,8 +53,10 @@ int Stack::pop() {
 
 class ManyStacks {
 public: 
+  int items;
   std::vector<Stack> stacks;
   ManyStacks() { 
+    items = 0;
     Stack newStack;
     stacks.push_back(newStack);
   }
@@ -62,27 +67,45 @@ public:
 };
 
 Stack& ManyStacks::currentStack() {
-  return stacks[stacks.size()];
+  int index = stacks.size()-1;
+  //called a ton
+  //std::cout << "the current stack index is: " << index << std::endl;
+  if (stacks[index].stackSize == 10) {
+    stacks[index].fullStack = true;
+  }
+  return stacks[index];
 }
 
 void ManyStacks::push(int data) {
   if (currentStack().fullStack) {
+    std::cout << "this means current stack is full" << std::endl;
     Stack newStack;
     stacks.push_back(newStack);
     newStack.push(data);
+    items++;
     return;
   }
+  items++;
+  std::cout << "it is pushing data to unfull stack" << std::endl;
   currentStack().push(data);
+  return;
 }
 int ManyStacks::pop() {
   if (currentStack().getTop() == NULL) {
+    std::cout << "top is null" << std::endl;
     stacks.erase(stacks.end());
     return currentStack().pop();
   }  
   return currentStack().pop();
 }
 void ManyStacks::printAll() {
+  std::cout << "amount of items: " << items << std::endl;
   int size = stacks.size();
+  for (int i = 0; i < items; i++) {
+    std::cout << pop() << std::endl;
+    std::cout << "pop" << std::endl;
+  }
+  return;
 }
 
 
@@ -96,5 +119,12 @@ int main() {
   bigBoy.push(1);
   bigBoy.push(1);
   bigBoy.push(1);
+  bigBoy.push(1);
+  bigBoy.push(1);
+  bigBoy.push(1);
+  bigBoy.push(1);
+  bigBoy.push(1);
+  bigBoy.push(1);
+  bigBoy.printAll();
   return 0;
 }
