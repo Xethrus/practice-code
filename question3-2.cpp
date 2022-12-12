@@ -42,6 +42,9 @@ void Stack::push(int data) {
     top->below = temp;
   }  
   stackSize++;
+  if (stackSize == 10) {
+    fullStack = true;
+  }
 }
 
 int Stack::pop() {
@@ -70,15 +73,16 @@ Stack& ManyStacks::currentStack() {
   int index = stacks.size()-1;
   //called a ton
   //std::cout << "the current stack index is: " << index << std::endl;
+  /*
   if (stacks[index].stackSize == 10) {
     stacks[index].fullStack = true;
   }
+  */
   return stacks[index];
 }
 
 void ManyStacks::push(int data) {
   if (currentStack().fullStack) {
-    std::cout << "this means current stack is full" << std::endl;
     Stack newStack;
     stacks.push_back(newStack);
     newStack.push(data);
@@ -86,22 +90,20 @@ void ManyStacks::push(int data) {
     return;
   }
   items++;
-  std::cout << "it is pushing data to unfull stack" << std::endl;
   currentStack().push(data);
   return;
 }
 int ManyStacks::pop() {
   if (currentStack().getTop() == NULL) {
     std::cout << "top is null" << std::endl;
-    stacks.erase(stacks.end());
-    return currentStack().pop();
+    stacks.erase(stacks.end() - 1);
   }  
   return currentStack().pop();
 }
 void ManyStacks::printAll() {
   std::cout << "amount of items: " << items << std::endl;
   int size = stacks.size();
-  for (int i = 0; i < items; i++) {
+  for (int i = 0; i < items - 1; i++) {
     std::cout << pop() << std::endl;
     std::cout << "pop" << std::endl;
   }
