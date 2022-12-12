@@ -34,12 +34,10 @@ Node* Stack::getTop() {
 void Stack::push(int data) {
   Node* newNode = new Node(data);
   if (top != NULL) {
-    std::cout << "added node" << std::endl;
     Node* temp = top;
     top = newNode;
     top->below = temp;
   } else {
-    std::cout << "added new beginning" << std::endl;
     top = newNode;
   }  
   stackSize++;
@@ -84,13 +82,9 @@ Stack& ManyStacks::currentStack() {
 //produces 14 items so if the push is functioning then its good: TODO check stack push, checked here again for issue with bool value but constructor should account for this.
 void ManyStacks::push(int data) {
   if (currentStack().fullStack) {
-    std::cout << "Creating a new stack" << std::endl;
     Stack newStack;
     stacks.push_back(newStack);
-    newStack.push(data);
-    std::cout << newStack.fullStack << std::endl;
-    items++;
-    return;
+//    newStack.push(data);
   }
   items++;
   currentStack().push(data);
