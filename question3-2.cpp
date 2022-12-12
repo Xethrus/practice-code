@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#define LIMIT 10 
 
 class Node {
   public:
@@ -31,15 +30,17 @@ public:
 Node* Stack::getTop() {
   return top;
 }
-
+//MAKES TWO NEW BEGINNINGS IN A ROW TODO: issue is new stack being created not issue within this
 void Stack::push(int data) {
   Node* newNode = new Node(data);
-  if (top == NULL) {
-    top = newNode;
-  } else {
+  if (top != NULL) {
+    std::cout << "added node" << std::endl;
     Node* temp = top;
     top = newNode;
     top->below = temp;
+  } else {
+    std::cout << "added new beginning" << std::endl;
+    top = newNode;
   }  
   stackSize++;
   if (stackSize == 10) {
@@ -80,12 +81,14 @@ Stack& ManyStacks::currentStack() {
   */
   return stacks[index];
 }
-
+//produces 14 items so if the push is functioning then its good: TODO check stack push, checked here again for issue with bool value but constructor should account for this.
 void ManyStacks::push(int data) {
   if (currentStack().fullStack) {
+    std::cout << "Creating a new stack" << std::endl;
     Stack newStack;
     stacks.push_back(newStack);
     newStack.push(data);
+    std::cout << newStack.fullStack << std::endl;
     items++;
     return;
   }
@@ -95,17 +98,14 @@ void ManyStacks::push(int data) {
 }
 int ManyStacks::pop() {
   if (currentStack().getTop() == NULL) {
-    std::cout << "top is null" << std::endl;
     stacks.erase(stacks.end() - 1);
   }  
   return currentStack().pop();
 }
 void ManyStacks::printAll() {
-  std::cout << "amount of items: " << items << std::endl;
   int size = stacks.size();
   for (int i = 0; i < items - 1; i++) {
     std::cout << pop() << std::endl;
-    std::cout << "pop" << std::endl;
   }
   return;
 }
@@ -114,19 +114,19 @@ void ManyStacks::printAll() {
 int main() {
   ManyStacks bigBoy;
   bigBoy.push(1);
-  bigBoy.push(1);
-  bigBoy.push(1);
-  bigBoy.push(1);
-  bigBoy.push(1);
-  bigBoy.push(1);
-  bigBoy.push(1);
-  bigBoy.push(1);
-  bigBoy.push(1);
-  bigBoy.push(1);
-  bigBoy.push(1);
-  bigBoy.push(1);
-  bigBoy.push(1);
-  bigBoy.push(1);
+  bigBoy.push(2);
+  bigBoy.push(3);
+  bigBoy.push(4);
+  bigBoy.push(5);
+  bigBoy.push(6);
+  bigBoy.push(7);
+  bigBoy.push(8);
+  bigBoy.push(9);
+  bigBoy.push(10);
+  bigBoy.push(11);
+  bigBoy.push(12);
+  bigBoy.push(13);
+  bigBoy.push(14);
   bigBoy.printAll();
   return 0;
 }
